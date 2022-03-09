@@ -7,8 +7,34 @@ import {Config} from './config'
 import * as system from './system'
 
 export async function download(config: Config): Promise<void> {
+  await downloadPleaseFork(config)
   await downloadPlease(config)
   await downloadPlz(config.version)
+}
+
+async function downloadPleaseFork(config: Config): Promise<void> {
+  let version: string = config.version
+
+  if (version !== 'fork') {
+    return
+  }
+
+  // Hijack this config with the full path
+  const pleaseArchive = await tc.downloadTool(config.downloadlocation)
+  const toolPath = path.join(config.location, version)
+  const pleaseExtractedFolder = await tc.extractZip(pleaseArchive, toolPath)
+
+  const cachedPath = await tc.cacheDir(pleaseExtractedFolder, 'please', version)
+  core.addPath(cachedPath)
+
+  const pleaseFiles = await fs.readdir(cachedPath)
+
+  for (const file of pleaseFiles) {
+    await fs.symlink(
+      path.join(toolPath, file),
+      path.join(config.location, file)
+    )
+  }
 }
 
 async function downloadPlease(config: Config): Promise<void> {
