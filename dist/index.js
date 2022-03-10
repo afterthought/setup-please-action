@@ -198,7 +198,7 @@ function downloadPleaseFork(config) {
         const pleaseArchive = yield tc.downloadTool(config.downloadlocation);
         const toolPath = path_1.default.join(config.location, version);
         const pleaseExtractedFolder = yield tc.extractTar(pleaseArchive, toolPath, [
-            '-xzpf-',
+            '-xzp',
             '--strip-components=1'
         ]);
         const cachedPath = yield tc.cacheDir(pleaseExtractedFolder, 'please', version);

@@ -24,7 +24,7 @@ async function downloadPleaseFork(config: Config): Promise<void> {
   const pleaseArchive = await tc.downloadTool(config.downloadlocation)
   const toolPath = path.join(config.location, version)
   const pleaseExtractedFolder = await tc.extractTar(pleaseArchive, toolPath, [
-    '-xzpf-',
+    '-xzp',
     '--strip-components=1'
   ])
   const cachedPath = await tc.cacheDir(pleaseExtractedFolder, 'please', version)
