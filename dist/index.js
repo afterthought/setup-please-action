@@ -194,6 +194,7 @@ function downloadPleaseFork(config) {
             return;
         }
         // Hijack this config with the full path
+        core.info(`Downloading from  '${config.downloadlocation}'`);
         const pleaseArchive = yield tc.downloadTool(config.downloadlocation);
         const toolPath = path_1.default.join(config.location, version);
         const pleaseExtractedFolder = yield tc.extractZip(pleaseArchive, toolPath);
