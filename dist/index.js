@@ -196,10 +196,7 @@ function downloadPleaseFork(config) {
         // Hijack this config with the full path
         const pleaseArchive = yield tc.downloadTool(config.downloadlocation);
         const toolPath = path_1.default.join(config.location, version);
-        const pleaseExtractedFolder = yield tc.extractTar(pleaseArchive, toolPath, [
-            'xJ',
-            '--strip-components=1'
-        ]);
+        const pleaseExtractedFolder = yield tc.extractTar(pleaseArchive, toolPath);
         const cachedPath = yield tc.cacheDir(pleaseExtractedFolder, 'please', version);
         core.addPath(cachedPath);
         const pleaseFiles = yield fs_1.promises.readdir(cachedPath);
