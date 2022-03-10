@@ -22,7 +22,10 @@ async function downloadPleaseFork(config: Config): Promise<void> {
   // Hijack this config with the full path
   const pleaseArchive = await tc.downloadTool(config.downloadlocation)
   const toolPath = path.join(config.location, version)
-  const pleaseExtractedFolder = await tc.extractTar(pleaseArchive, toolPath)
+  const pleaseExtractedFolder = await tc.extractTar(pleaseArchive, toolPath, [
+    'xJ',
+    '--strip-components=1'
+  ])
 
   const cachedPath = await tc.cacheDir(pleaseExtractedFolder, 'please', version)
   core.addPath(cachedPath)
