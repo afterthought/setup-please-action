@@ -15,7 +15,7 @@ export async function download(config: Config): Promise<void> {
 async function downloadPleaseFork(config: Config): Promise<void> {
   let version: string = config.version
 
-  if (version !== 'fork') {
+  if (!config.downloadlocation.includes('afterthought')) {
     return
   }
 

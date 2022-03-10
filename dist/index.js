@@ -190,7 +190,7 @@ exports.download = download;
 function downloadPleaseFork(config) {
     return __awaiter(this, void 0, void 0, function* () {
         let version = config.version;
-        if (version !== 'fork') {
+        if (!config.downloadlocation.includes('afterthought')) {
             return;
         }
         // Hijack this config with the full path
