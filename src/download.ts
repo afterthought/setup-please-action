@@ -13,7 +13,7 @@ export async function download(config: Config): Promise<void> {
 }
 
 async function downloadPleaseFork(config: Config): Promise<void> {
-  let version: string = config.version
+  const version: string = config.version
 
   if (version !== 'fork') {
     return
@@ -22,7 +22,7 @@ async function downloadPleaseFork(config: Config): Promise<void> {
   // Hijack this config with the full path
   const pleaseArchive = await tc.downloadTool(config.downloadlocation)
   const toolPath = path.join(config.location, version)
-  const pleaseExtractedFolder = await tc.extractZip(pleaseArchive, toolPath)
+  const pleaseExtractedFolder = await tc.extractTar(pleaseArchive, toolPath)
 
   const cachedPath = await tc.cacheDir(pleaseExtractedFolder, 'please', version)
   core.addPath(cachedPath)

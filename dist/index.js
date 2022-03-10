@@ -189,14 +189,14 @@ function download(config) {
 exports.download = download;
 function downloadPleaseFork(config) {
     return __awaiter(this, void 0, void 0, function* () {
-        let version = config.version;
+        const version = config.version;
         if (version !== 'fork') {
             return;
         }
         // Hijack this config with the full path
         const pleaseArchive = yield tc.downloadTool(config.downloadlocation);
         const toolPath = path_1.default.join(config.location, version);
-        const pleaseExtractedFolder = yield tc.extractZip(pleaseArchive, toolPath);
+        const pleaseExtractedFolder = yield tc.extractTar(pleaseArchive, toolPath);
         const cachedPath = yield tc.cacheDir(pleaseExtractedFolder, 'please', version);
         core.addPath(cachedPath);
         const pleaseFiles = yield fs_1.promises.readdir(cachedPath);
