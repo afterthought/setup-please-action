@@ -32,7 +32,7 @@ async function readConfigFiles(profile: string): Promise<string[]> {
   return readFiles(configFiles)
 }
 
-const keyValueRe = /^\s*([A-Za-z0-9\-_]+)\s*=\s*(?:'|")?([A-Za-z0-9\-._/]+)(?:'|")?\s*$/
+const keyValueRe = /^\s*([A-Za-z0-9\-_]+)\s*=\s*(?:'|")?([A-Za-z0-9\-._/:]+)(?:'|")?\s*$/
 
 // Parse the contents of a git-config/INI-like file.
 // It parses the "please" section of the file and returns a config object.
