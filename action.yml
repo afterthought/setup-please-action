@@ -9,6 +9,9 @@ inputs:
   version:
     description: 'Please version. Overrides the version in .plzconfig.'
     required: false
+  fork-download-location:
+    description: 'Direct link to download distribution'
+    required: false
   profile:
     description: 'Configuration profile name'
     required: false

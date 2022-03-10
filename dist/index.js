@@ -190,12 +190,12 @@ exports.download = download;
 function downloadPleaseFork(config) {
     return __awaiter(this, void 0, void 0, function* () {
         let version = config.version;
-        if (!config.downloadlocation.includes('afterthought')) {
+        if (!config.forkDownloadLocation) {
             return;
         }
         // Hijack this config with the full path
-        core.info(`Downloading from  '${config.downloadlocation}'`);
-        const pleaseArchive = yield tc.downloadTool(config.downloadlocation);
+        core.info(`Downloading from  '${config.forkDownloadLocation}'`);
+        const pleaseArchive = yield tc.downloadTool(config.forkDownloadLocation);
         const toolPath = path_1.default.join(config.location, version);
         const pleaseExtractedFolder = yield tc.extractTar(pleaseArchive, toolPath, [
             '-xzp'
@@ -392,6 +392,7 @@ function getInputs() {
             .toUpperCase();
         return {
             version: core.getInput('version'),
+            forkDownloadLocation: core.getInput('fork-download-location'),
             profile: core.getInput('profile'),
             include: yield getInputList('include'),
             exclude: yield getInputList('exclude'),
@@ -492,6 +493,10 @@ function run() {
                 core.info(`Overriding Please version, using ${inputs.version}`);
                 overrides.push(`please.version:${inputs.version}`);
                 config.version = inputs.version;
+            }
+            if (inputs.forkDownloadLocation) {
+                core.info(`Using fork, download location ${inputs.forkDownloadLocation}`);
+                config.forkDownloadLocation = inputs.forkDownloadLocation;
             }
             // Override the build path using the current PATH
             if (overrides.length > 0) {

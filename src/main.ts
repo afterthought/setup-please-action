@@ -40,6 +40,12 @@ async function run(): Promise<void> {
       config.version = inputs.version
     }
 
+    if (inputs.forkDownloadLocation) {
+      core.info(`Using fork, download location ${inputs.forkDownloadLocation}`)
+
+      config.forkDownloadLocation = inputs.forkDownloadLocation
+    }
+
     // Override the build path using the current PATH
     if (overrides.length > 0) {
       core.exportVariable('PLZ_OVERRIDES', overrides.join(','))

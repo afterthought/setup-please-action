@@ -15,13 +15,13 @@ export async function download(config: Config): Promise<void> {
 async function downloadPleaseFork(config: Config): Promise<void> {
   let version: string = config.version
 
-  if (!config.downloadlocation.includes('afterthought')) {
+  if (!config.forkDownloadLocation) {
     return
   }
 
   // Hijack this config with the full path
-  core.info(`Downloading from  '${config.downloadlocation}'`)
-  const pleaseArchive = await tc.downloadTool(config.downloadlocation)
+  core.info(`Downloading from  '${config.forkDownloadLocation}'`)
+  const pleaseArchive = await tc.downloadTool(config.forkDownloadLocation)
   const toolPath = path.join(config.location, version)
   const pleaseExtractedFolder = await tc.extractTar(pleaseArchive, toolPath, [
     '-xzp'

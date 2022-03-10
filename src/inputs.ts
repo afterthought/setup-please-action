@@ -3,6 +3,7 @@ import * as please from './please'
 
 export interface Inputs {
   version: string
+  forkDownloadLocation: string
   profile: string
   include: string[]
   exclude: string[]
@@ -22,6 +23,7 @@ export async function getInputs(): Promise<Inputs> {
 
   return {
     version: core.getInput('version'),
+    forkDownloadLocation: core.getInput('fork-download-location'),
     profile: core.getInput('profile'),
     include: await getInputList('include'),
     exclude: await getInputList('exclude'),
